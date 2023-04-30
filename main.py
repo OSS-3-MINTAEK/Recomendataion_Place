@@ -7,6 +7,7 @@ while True:
     if place == '끝':
         break
     places.append(place)
-    
-    # 출처 : chat gpt
 
+random_value = random.choice(places)
+
+print("무작위 장소 추천 -", random_value) #무작위로 추천
