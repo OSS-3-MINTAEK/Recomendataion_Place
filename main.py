@@ -3,15 +3,10 @@ from places import places
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('장소 .csv',encoding='cp949')
+data = pd.read_csv('place_data.csv',encoding='utf-8')
 
-place = places()
-
-while True:
-    input_place = input("장소를 입력하세요 (종료하려면 '끝'을 입력하세요): ")
-    if input_place == '끝':
-        break
-    place.add_place(input_place)
+place = places(data)
+place.init_place()
 
 random_value = random.choice(place.get_places())
 
