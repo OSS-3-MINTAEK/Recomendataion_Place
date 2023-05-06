@@ -3,7 +3,7 @@ from places import places
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('장소 .csv',encoding='cp949')
+data = pd.read_csv('place_data.csv',encoding='utf-8')
 
 place = places()
 
