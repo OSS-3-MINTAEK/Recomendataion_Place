@@ -21,8 +21,9 @@ class places:
         self.recommended_place.clear()
 
         # 추천 장소 랜덤 선택
-        random_cafe = random.choice(self.data[self.data['종류'] == '카페']['장소 이름'].values)
-        random_restaurant = random.choice(self.data[self.data['종류'] != '카페']['장소 이름'].values)
+        data = self.data
+        random_cafe = random.choice(data[data['종류'] == '카페']['장소 이름'].values)
+        random_restaurant = random.choice(data[data['종류'] != '카페']['장소 이름'].values)
 
         # 추천 장소 리스트에 추가
         self.recommended_place.append(random_restaurant)
