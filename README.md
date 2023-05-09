@@ -1,5 +1,15 @@
-# Recomendataion_Place
-
+## Hi there 👋
+We are students in 23-1 OSS class.
+The purpose of our program is to recommend date course places to people.
+## Members 🐱
+- MINTAEK
+- NAMIKA
+- SEOJIN
+- SEOYUN
+- MOONA
+- MOOWON
+- EUNSU
+- SHERZOD
 ## Member Rules
 - 1일 1커밋
 - 어려운것, 도움이 필요한것, 모르는것은 이슈에서 작성
