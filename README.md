@@ -1,5 +1,5 @@
 ## Hi there 👋
-We are students in 23-1 OSS class.
+We are students in 23-1 OSS class.  
 The purpose of our program is to recommend date course places to people.
 ## Members 🐱
 - MINTAEK
