@@ -1,6 +1,6 @@
 ## Hi there 👋
 We are students in 23-1 OSS class.  
-The purpose of our program is to recommend date course places to people.
+Our program aims to provide people with recommendations for date spots in Jeju Island.
 ## Members 🐱
 - MINTAEK
 - NAMIKA
