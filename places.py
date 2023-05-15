@@ -51,6 +51,10 @@ class Places:
         # 추천 카페 랜덤 선택
         random_cafe = random.choice(self.cafe_places_name)
 
+        # 사용자에게 물어보기
+        print("Check recommendation place: ", random_cafe)
+        random_cafe = self.user_check(self.cafe_places_name, random_cafe)
+
         # 추천 음식점 랜덤 선택
         random_food = random.choice(self.food_places_name)
 
@@ -64,3 +68,11 @@ class Places:
 
         # 리턴
         return self.recommended_place
+    
+    def user_check(self, data, choice_place):
+        check = int(input('Agree: 1, Disagree: 2 ='))
+        if check == 2:
+            random_data = random.choice(data)
+            return random_data
+        else:
+            return choice_place
