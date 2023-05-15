@@ -1,0 +1,61 @@
+#챗지피티의 힘을 빌렸습니다... 제가 코드를 짜는 날이 오길 바라며 공부하겠습니다
+#사실 이게 맞는지도 모르겠습니다... 그냥 코드를 올려보고싶었습니다/...
+#민택선배님이 수정 해 주실거죠 ....? ><..
+import pandas as pd
+import random
+
+class Places:
+    def __int__(self,cage_data, food_data, tourist_data):
+        self.cafe_places_name = []
+        self.food_places_name = []
+        self.tourist_places_name = []
+        self.recommended_place = []
+        self.cafe_data = cafe_data
+        self.food_data = food_data
+        self.tourist_data = tourist_data
+
+# 데이터 프레임 로드
+cafe_data = pd.read_csv('cafe_data.csv')
+food_data = pd.read_csv('food_data.csv')
+tourist_data = pd.read_csv('tourist_data.csv')
+
+# Places 인스턴스 생성
+places = Places(cafe_data, food_data, tourist_data)
+
+# 장소 초기화
+places.init_cafe_place()
+places.init_food_place()
+places.init_tourist_place()
+
+# 추천 장소 받기
+recommended_places = places.start_recommend()
+
+# 추천 장소 출력
+print("추천 장소:")
+for place in recommended_places:
+    print(place)
+
+# 변경 요구
+change_request = input("장소를 변경하시겠습니까? (예/아니오): ")
+
+if change_request == "예":
+    change_type = input("어떤 장소를 변경하시겠습니까? (카페/음식점/관광지): ")
+
+    if change_type == "카페":
+        new_cafe = input("새로운 카페를 입력하세요: ")
+        recommended_places[0] = new_cafe
+    elif change_type == "음식점":
+        new_food = input("새로운 음식점을 입력하세요: ")
+        recommended_places[1] = new_food
+    elif change_type == "관광지":
+        new_tourist = input("새로운 관광지를 입력하세요: ")
+        recommended_places[2] = new_tourist
+    else:
+        print("잘못된 입력입니다.")
+
+    print("변경된 추천 장소:")
+    for place in recommended_places:
+        print(place)
+else:
+    print("추천 장소를 유지합니다.")
+
