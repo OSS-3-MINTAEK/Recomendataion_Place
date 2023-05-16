@@ -51,10 +51,6 @@ class Places:
         # 추천 카페 랜덤 선택
         random_cafe = random.choice(self.cafe_places_name)
 
-        # 사용자에게 물어보기
-        print("Check recommendation place: ", random_cafe)
-        random_cafe = self.user_check(self.cafe_places_name, random_cafe)
-
         # 추천 음식점 랜덤 선택
         random_food = random.choice(self.food_places_name)
 
@@ -66,13 +62,21 @@ class Places:
         self.recommended_place.append(random_food)
         self.recommended_place.append(random_tourist)
 
+        # 사용자에게 물어보기
+        for recommend_place in self.recommended_place:
+            print('장소: ', recommend_place)
+        self.user_check()
+
         # 리턴
         return self.recommended_place
     
-    def user_check(self, data, choice_place):
-        check = int(input('Agree: 1, Disagree: 2 ='))
-        if check == 2:
-            random_data = random.choice(data)
-            return random_data
-        else:
-            return choice_place
+    def user_check(self):
+        check = input("Do you want to change the place? (yes / no)")
+        if check == "yes":
+            change_type = input("Which place do you want to change? (cafe / restaurant / tour)")
+            if change_type == "cafe":
+                self.recommended_place[0] = random.choice(self.cafe_places_name)
+            elif change_type == "restaurant":
+                self.recommended_place[1] = random.choice(self.food_places_name)
+            elif change_type == "tour":
+                self.recommended_place[2] = random.choice(self.tourist_places_name)
