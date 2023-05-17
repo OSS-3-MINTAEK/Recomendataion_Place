@@ -1,6 +1,4 @@
-import pandas as pd
 import random
-
 class Places:
     def __init__(self, cafe_data, food_data, tourist_data):
         self.cafe_places_name = []
@@ -71,12 +69,16 @@ class Places:
         return self.recommended_place
     
     def user_check(self):
-        check = input("Do you want to change the place? (yes / no)")
+        check = input("Do you want to change the place? (yes / no) ")
         if check == "yes":
-            change_type = input("Which place do you want to change? (cafe / restaurant / tour)")
+            change_type = input("Which place do you want to change? (cafe / restaurant / tour) ")
             if change_type == "cafe":
                 self.recommended_place[0] = random.choice(self.cafe_places_name)
             elif change_type == "restaurant":
                 self.recommended_place[1] = random.choice(self.food_places_name)
             elif change_type == "tour":
                 self.recommended_place[2] = random.choice(self.tourist_places_name)
+            else:
+                print("Invalid input.")
+        else:
+            print("Keep it.")
