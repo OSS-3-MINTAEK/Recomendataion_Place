@@ -17,4 +17,4 @@ recommend_places = place.start_recommend()
 
 # 추천 장소 출력
 for recommend_place in recommend_places:
-    print('장소: ', recommend_place)
+    print('최종 장소: ', recommend_place)

@@ -41,6 +41,10 @@ class Places:
 
     def get_tourist_places(self):
         return self.tourist_places_name
+    
+    def print_recommeded_places(self):
+        for recommend_place in self.recommended_place:
+            print('장소: ', recommend_place)
 
     def start_recommend(self):
         # 추천 장소 리셋
@@ -61,14 +65,20 @@ class Places:
         self.recommended_place.append(random_tourist)
 
         # 사용자에게 물어보기
-        for recommend_place in self.recommended_place:
-            print('장소: ', recommend_place)
-        self.user_check()
+        self.print_recommeded_places()
+        check = self.user_check()
+        
+        while True:
+            self.print_recommeded_places()
+            check = self.user_check()
+            if check == True:
+                break
 
         # 리턴
         return self.recommended_place
     
     def user_check(self):
+        flag = False
         check = input("Do you want to change the place? (yes / no) ")
         if check == "yes":
             change_type = input("Which place do you want to change? (cafe / restaurant / tour) ")
@@ -82,3 +92,5 @@ class Places:
                 print("Invalid input.")
         else:
             print("Keep it.")
+            flag = True
+        return flag
