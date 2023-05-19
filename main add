@@ -1,0 +1,27 @@
+# csv의 지역 정보를 사용자가 선택하여 랜덤으로 장소를 추천하는 방법을 추가하고 싶었습니다
+#챗 gpt를 이용하였습니다
+from places import Places
+import pandas as pd
+
+# csv 데이터 불러오기
+cafe_data = pd.read_csv('cafe_place_data.csv',encoding='utf-8')
+food_data = pd.read_csv('food_place_data.csv',encoding='utf-8')
+tour_data = pd.read_csv('tourist_place_data.csv',encoding='utf-8')
+
+# place class 생성 및 초기 설정
+place = Places(cafe_data, food_data, tour_data)
+place.init_cafe_place()
+place.init_food_place()
+place.init_tourist_place()
+
+
+# 사용자 입력 받기
+location = input("Enter a location: ")
+
+# 추천 장소 함수 실행
+recommend_places = place.start_recommend()
+
+# 추천 장소 출력
+print(f"\nRecommended places in {location}:")
+for recommend_place in recommend_places:
+    print('- ' + recommend_place)
