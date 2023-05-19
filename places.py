@@ -65,9 +65,6 @@ class Places:
         self.recommended_place.append(random_tourist)
 
         # 사용자에게 물어보기
-        self.print_recommeded_places()
-        check = self.user_check()
-        
         while True:
             self.print_recommeded_places()
             check = self.user_check()
