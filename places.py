@@ -91,6 +91,6 @@ class Places:
             else:
                 print("Invalid input.")
         else:
-            print("Keep it.")
+            print("Keep it")
             check = True
         return check
