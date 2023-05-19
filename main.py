@@ -12,11 +12,13 @@ place.init_cafe_place()
 place.init_food_place()
 place.init_tourist_place()
 
-
+# 사용자의 위치 입력
+user_location = input("Enter a location: ")
 
 # 장소 추천 함수 실행
 recommend_places = place.start_recommend()
 
 # 추천 장소 출력
+print(f"\nRecommended places in {user_location}")
 for recommend_place in recommend_places:
     print('최종 장소: ', recommend_place)
