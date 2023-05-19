@@ -78,7 +78,7 @@ class Places:
         return self.recommended_place
     
     def user_check(self):
-        flag = False
+        check = False
         check = input("Do you want to change the place? (yes / no) ")
         if check == "yes":
             change_type = input("Which place do you want to change? (cafe / restaurant / tour) ")
@@ -92,5 +92,5 @@ class Places:
                 print("Invalid input.")
         else:
             print("Keep it.")
-            flag = True
-        return flag
+            check = True
+        return check
