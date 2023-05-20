@@ -24,6 +24,11 @@ class Places:
         for name in place_name:
             self.add_tourist_place(name)
 
+    def init_all(self):
+        self.init_cafe_place()
+        self.init_food_place()
+        self.init_tourist_place()
+
     def add_cafe_place(self, name):
         self.cafe_places_name.append(name)
 

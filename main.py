@@ -8,9 +8,7 @@ tour_data = pd.read_csv('tourist_place_data.csv',encoding='utf-8')
 
 # place class 생성 및 초기 설정
 place = Places(cafe_data, food_data, tour_data)
-place.init_cafe_place()
-place.init_food_place()
-place.init_tourist_place()
+place.init_all()
 
 # 사용자의 위치 입력
 user_location = input("Enter a location: ")
