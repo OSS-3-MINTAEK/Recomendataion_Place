@@ -1,0 +1,16 @@
+# 장소 목록
+places = ['제주시', '애월', '한림', '서귀포', '성산','우도', '성산','조천읍','구좌읍']
+
+# 장소 목록 보여주기
+print("다음 중에서 선택하세요:")
+for i, place in enumerate(places):
+    print("{place}")
+
+# 사용자 선택 입력 받기
+selection = input("선택한 장소를 입력하세요: ")
+
+# 선택된 장소 출력
+try:
+    index = int(selection) - 1
+    selected_place = places[index]
+    print("선택한 장소는", selected_place, "입니다!")
