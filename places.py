@@ -99,3 +99,8 @@ class Places:
             print("잘못된 입력입니다. 'yes' 나 'no' 중 하나를 입력해주세요")
             
         return true_false
+    
+    # 데이터 파일 경로
+cafe_data = 'cafe_place_data.csv'
+food_data = 'food_place_data.csv'
+tourist_data = 'tourist_place_data.csv'
