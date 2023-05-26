@@ -92,7 +92,10 @@ class Places:
                 self.recommended_place[2] = random.choice(self.tourist_places_name)
             else:
                 print("Invalid input.")
-        else:
+        elif check == "no":
             print("Keep it")
             true_false = True
+        else:
+            print("잘못된 입력입니다. 'yes' 나 'no' 중 하나를 입력해주세요")
+            
         return true_false
