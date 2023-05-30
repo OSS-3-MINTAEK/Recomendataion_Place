@@ -91,10 +91,12 @@ class Places:
             elif change_type == "tour":
                 self.recommended_place[2] = random.choice(self.tourist_places_name)
             else:
-                print("Invalid input.")
-        else:
-            print("Keep it")
+                print("Invalid input.Please choose either 'cafe', 'restaurant', or 'tour'.")
+        elif check == "no":
+            print("keep it")
             true_false = True
+        else:
+            print("Invalid input. Please enter either 'yes' or 'no'.")
         return true_false
     
     # 데이터 파일 경로
