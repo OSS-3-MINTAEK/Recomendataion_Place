@@ -1,4 +1,5 @@
 import random
+
 class Places:
     def __init__(self, cafe_data, food_data, tourist_data):
         self.cafe_places_name = []
