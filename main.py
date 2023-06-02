@@ -4,8 +4,6 @@
 from place import Place
 import pandas as pd
 from tkinter import *
-from geopy.geocoders import Nominatim
-from geopy import distance
 
 # csv 데이터 불러오기
 cafe_data = pd.read_csv('cafe_place_data.csv',encoding='utf-8')
