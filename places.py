@@ -1,6 +1,6 @@
 import pandas as pd
 from geopy.geocoders import Nominatim
-import random
+from geopy import distance
 
 class Places:
     def __init__(self, food_data, cafe_data, hotel_data, tourist_data):
@@ -21,14 +21,10 @@ class Places:
         return None, None
 
     def calculate_distance(self, lat1, lon1, lat2, lon2):
-        # Calculate the differences in latitude and longitude
-        dlat = lat2 - lat1
-        dlon = lon2 - lon1
-
-        # Use the Pythagorean theorem to calculate the distance
-        distance = (dlat**2 + dlon**2)**0.5
-
-        return distance
+        coords_1 = (lat1, lon1)
+        coords_2 = (lat2, lon2)
+        dist = distance.distance(coords_1, coords_2).kilometers
+        return dist
 
     def compare_distances(self, user_location):
         user_lat, user_lon = self.convert_address_to_coordinates(user_location)
@@ -43,34 +39,35 @@ class Places:
             if food_lat is not None and food_lon is not None:
                 food_distance = self.calculate_distance(user_lat, user_lon, food_lat, food_lon)
                 distances.append(('음식점', row['이름'], food_distance))
-                break
 
         for index, row in self.cafe_places.iterrows():
             cafe_lat, cafe_lon = self.convert_address_to_coordinates(row['위치'])
             if cafe_lat is not None and cafe_lon is not None:
                 cafe_distance = self.calculate_distance(user_lat, user_lon, cafe_lat, cafe_lon)
                 distances.append(('카페', row['이름'], cafe_distance))
-                break
 
         for index, row in self.hotel_places.iterrows():
             hotel_lat, hotel_lon = self.convert_address_to_coordinates(row['위치'])
             if hotel_lat is not None and hotel_lon is not None:
                 hotel_distance = self.calculate_distance(user_lat, user_lon, hotel_lat, hotel_lon)
                 distances.append(('호텔', row['이름'], hotel_distance))
-                break
 
         for index, row in self.tourist_places.iterrows():
             tourist_lat, tourist_lon = self.convert_address_to_coordinates(row['위치'])
             if tourist_lat is not None and tourist_lon is not None:
                 tourist_distance = self.calculate_distance(user_lat, user_lon, tourist_lat, tourist_lon)
                 distances.append(('관광지', row['이름'], tourist_distance))
-                break
 
         distances.sort(key=lambda x: x[2])
 
-        print(f"사용자 위치({user_location})와의 거리:")
-        for distance in distances:
-            print(f"{distance[0]}: {distance[1]}, 거리: {distance[2]:.2f} km")
+        print(f"사용자 위치({user_location})와의 가장 가까운 장소:")
+        
+        for place_type in ['음식점', '카페', '호텔', '관광지']:
+            closest_place = next((place for place in distances if place[0] == place_type), None)
+            if closest_place:
+                print(f"{place_type}: {closest_place[1]}, 거리: {closest_place[2]:.2f} km")
+            else:
+                print(f"{place_type}: 해당하는 장소 없음")
 
 
 # CSV 파일 경로
@@ -89,7 +86,7 @@ tourist_data = pd.read_csv(tourist_csv, encoding='utf-8')
 places = Places(food_data, cafe_data, hotel_data, tourist_data)
 
 # 사용자 위치 입력
-user_location = "서울시 강남구"
+user_location = input("사용자 위치를 입력하세요: ")
 
 # 사용자 위치와 장소들 사이의 거리 비교
 places.compare_distances(user_location)
