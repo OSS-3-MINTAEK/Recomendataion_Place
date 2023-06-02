@@ -3,7 +3,7 @@
 #from tkinter import *는 "tkinter"라이브러리를 가져옵니다. tkinter는 Python에서 GUI (그래픽 사용자 인터페이스)를 구축하기 위한 표준 라이브러리입니다. 
 from places import Places
 import pandas as pd
-from tkinter import 
+from tkinter import *
 # csv 데이터 불러오기
 cafe_data = pd.read_csv('cafe_place_data.csv',encoding='utf-8')
 food_data = pd.read_csv('food_place_data.csv',encoding='utf-8')

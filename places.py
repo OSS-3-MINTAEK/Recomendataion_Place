@@ -89,7 +89,7 @@ tourist_data = pd.read_csv(tourist_csv, encoding='utf-8')
 places = Places(food_data, cafe_data, hotel_data, tourist_data)
 
 # 사용자 위치 입력
-user_location = "서울시 강남구"
+user_location = input("사용자 위치를 입력하세요: ")
 
 # 사용자 위치와 장소들 사이의 거리 비교
 places.compare_distances(user_location)
