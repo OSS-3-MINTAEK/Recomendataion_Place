@@ -1,5 +1,6 @@
 import pandas as pd
-from math import radians, sin, cos, sqrt
+from math import radians, sin, cos, sqrt, atan2
+from geopy.geocoders import Nominatim
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     # 위도 및 경도를 라디안으로 변환
@@ -20,51 +21,64 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return distance
 
 class Places:
-    def __init__(self, cafe_data, food_data, tourist_data):
-        self.cafe_places = cafe_data
+    def __init__(self, food_data, place_data, tourist_data):
         self.food_places = food_data
+        self.place_places = place_data
         self.tourist_places = tourist_data
 
-    def compare_distances(self, location):
-        # 사용자의 위치 정보
-        user_lat = float(location['latitude'])
-        user_lon = float(location['longitude'])
+    def compare_distances(self, user_location):
+        # 사용자의 주소를 좌표로 변환
+        geolocator = Nominatim(user_agent="geopy")
+        user_geo = geolocator.geocode(user_location)
+        user_lat = user_geo.latitude
+        user_lon = user_geo.longitude
 
         # 거리 계산 및 결과 저장
         distances = []
-        for index, row in self.cafe_places.iterrows():
-            cafe_lat = float(row['latitude'])
-            cafe_lon = float(row['longitude'])
-            cafe_distance = calculate_distance(user_lat, user_lon, cafe_lat, cafe_lon)
-            distances.append(('cafe', row['name'], cafe_distance))
-        
         for index, row in self.food_places.iterrows():
-            food_lat = float(row['latitude'])
-            food_lon = float(row['longitude'])
+            food_location = geolocator.geocode(row['위치'])
+            food_lat = food_location.latitude
+            food_lon = food_location.longitude
             food_distance = calculate_distance(user_lat, user_lon, food_lat, food_lon)
-            distances.append(('food', row['name'], food_distance))
+            distances.append(('음식점', row['name'], food_distance))
+
+        for index, row in self.place_places.iterrows():
+            place_location = geolocator.geocode(row['위치'])
+            place_lat = place_location.latitude
+            place_lon = place_location.longitude
+            place_distance = calculate_distance(user_lat, user_lon, place_lat, place_lon)
+            distances.append(('장소', row['name'], place_distance))
 
         for index, row in self.tourist_places.iterrows():
-            tourist_lat = float(row['latitude'])
-            tourist_lon = float(row['longitude'])
+            tourist_location = geolocator.geocode(row['위치'])
+            tourist_lat = tourist_location.latitude
+            tourist_lon = tourist_location.longitude
             tourist_distance = calculate_distance(user_lat, user_lon, tourist_lat, tourist_lon)
-            distances.append(('tourist', row['name'], tourist_distance))
+            distances.append(('관광지', row['name'], tourist_distance))
 
         # 거리에 따라 정렬
         distances.sort(key=lambda x: x[2])
 
         # 결과 출력
-        print(f"장소와의 거리 ({location['name']})")
+        print(f"사용자 위치({user_location})와의 거리:")
         for distance in distances:
             print(f"{distance[0]}: {distance[1]}, 거리: {distance[2]:.2f} km")
 
-# csv 데이터 불러오기
-cafe_data = pd.read_csv('cafe_place_data.csv', encoding='utf-8')
-food_data = pd.read_csv('food_place_data.csv', encoding='utf-8')
-tour_data = pd.read_csv('tourist_place_data.csv', encoding='utf-8')
+# CSV 파일 경로
+food_csv = 'food_place_data.csv'
+place_csv = 'place_place_data.csv'
+tourist_csv = 'tourist_place_data.csv'
 
-# place 클래스 생성
-places = Places(cafe_data, food_data, tour_data)
+# CSV 데이터 불러오기
+food_data = pd.read_csv(food_csv, encoding='utf-8')
+place_data = pd.read_csv(place_csv, encoding='utf-8')
+tourist_data = pd.read_csv(tourist_csv, encoding='utf-8')
+
+# Places 클래스 생성
+places = Places(food_data, place_data, tourist_data)
 
 # 사용자의 위치 입력
-user_location
+user_location = input("사용자 위치(주소): ")
+
+# 장소와의 거리 비교 및 출력
+places.compare_distances(user_location)
