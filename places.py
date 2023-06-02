@@ -1,5 +1,6 @@
 import pandas as pd
 from geopy.geocoders import Nominatim
+import random
 
 class Places:
     def __init__(self, food_data, cafe_data, hotel_data, tourist_data):

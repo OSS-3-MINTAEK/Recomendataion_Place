@@ -1,3 +1,6 @@
+#from places import Places는 "places"라는 모듈에서 "Places"라는 클래스를 가져옵니다. 
+#import pandas as pd는 "pandas"라이브러리를 가져옵니다. pandas는 데이터 조작과 분석을 위한 강력한 도구로 널리 사용됩니다.
+#from tkinter import *는 "tkinter"라이브러리를 가져옵니다. tkinter는 Python에서 GUI (그래픽 사용자 인터페이스)를 구축하기 위한 표준 라이브러리입니다. 
 from places import Places
 import pandas as pd
 from tkinter import *
@@ -11,7 +14,10 @@ place = Places(cafe_data, food_data, tour_data)
 place.init_all()
 
 # 사용자의 위치 입력
+locations = ['제주시', '애월읍', '한림읍', '한경면', '대정읍', '인덕면', '중문', '서귀포시', '남원읍', '표선면', '성산읍', '우도', '구좌읍', '조천읍']
 user_location = input("Enter a location: ")
+while user_location not in locations:
+    user_location = input("Enter a location: ")
 
 # 장소 추천 함수 실행
 recommend_places = place.start_recommend()
