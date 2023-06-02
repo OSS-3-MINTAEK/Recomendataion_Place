@@ -14,7 +14,10 @@ place = Places(cafe_data, food_data, tour_data)
 place.init_all()
 
 # 사용자의 위치 입력
+locations = ['제주시', '애월읍', '한림읍', '한경면', '대정읍', '인덕면', '중문', '서귀포시', '남원읍', '표선면', '성산읍', '우도', '구좌읍', '조천읍']
 user_location = input("Enter a location: ")
+while user_location not in locations:
+    user_location = input("Enter a location: ")
 
 # 장소 추천 함수 실행
 recommend_places = place.start_recommend()
