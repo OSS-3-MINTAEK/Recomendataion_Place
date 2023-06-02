@@ -4,7 +4,6 @@
 from place import Place
 import pandas as pd
 from tkinter import *
-#왁
 
 # csv 데이터 불러오기
 cafe_data = pd.read_csv('cafe_place_data.csv',encoding='utf-8')
