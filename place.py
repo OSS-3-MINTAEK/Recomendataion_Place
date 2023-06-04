@@ -100,7 +100,3 @@ class Place:
             print("Invalid input. Please enter either 'yes' or 'no'.")
         return true_false
     
-    # 데이터 파일 경로
-cafe_data = 'cafe_place_data.csv'
-food_data = 'food_place_data.csv'
-tourist_data = 'tourist_place_data.csv'
