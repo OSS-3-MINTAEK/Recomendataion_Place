@@ -8,9 +8,14 @@ food_data = pd.read_csv('food_place_data.csv', encoding='utf-8')
 tour_data = pd.read_csv('tourist_place_data.csv', encoding='utf-8')
 hotel_data = pd.read_csv('hotel_place_data.csv', encoding='utf-8')
 
+def extract_data(data, location):
+    result = data[data['지역'].str.contains(location)]
+    return result
+
 # 사용자의 위치 입력
 locations = ['제주시', '애월읍', '한림읍', '한경면', '대정읍', '인덕면', '중문', '서귀포시', '남원읍', '표선면', '성산읍', '우도', '구좌읍', '조천읍']
 print(locations)
+
 while True:
     user_location = input("위치를 입력하세요: ")
     if user_location in locations:

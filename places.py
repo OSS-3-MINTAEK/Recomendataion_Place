@@ -10,11 +10,15 @@ class Places:
         self.tourist_places = tourist_data
         self.geolocator = Nominatim(user_agent="geopy")
 
-    def convert_address_to_coordinates(self, address):
+    def convert_address_to_coordinates(self, address, address2):
         try:
             location = self.geolocator.geocode(address)
             if location:
                 return location.latitude, location.longitude
+            else:
+                location = self.geolocator.geocode(address2)
+                if location:
+                    return location.latitude, location.longitude
         except:
             pass
 
@@ -27,7 +31,7 @@ class Places:
         return dist
 
     def compare_distances(self, user_location):
-        user_lat, user_lon = self.convert_address_to_coordinates(user_location)
+        user_lat, user_lon = self.convert_address_to_coordinates(user_location, user_location)
         if user_lat is None or user_lon is None:
             print("유효하지 않은 사용자 위치입니다.")
             return
@@ -35,25 +39,25 @@ class Places:
         distances = []
 
         for index, row in self.food_places.iterrows():
-            food_lat, food_lon = self.convert_address_to_coordinates(row['위치'])
+            food_lat, food_lon = self.convert_address_to_coordinates(row['위치'], row['지역'])
             if food_lat is not None and food_lon is not None:
                 food_distance = self.calculate_distance(user_lat, user_lon, food_lat, food_lon)
                 distances.append(('음식점', row['이름'], food_distance))
 
         for index, row in self.cafe_places.iterrows():
-            cafe_lat, cafe_lon = self.convert_address_to_coordinates(row['위치'])
+            cafe_lat, cafe_lon = self.convert_address_to_coordinates(row['위치'], row['지역'])
             if cafe_lat is not None and cafe_lon is not None:
                 cafe_distance = self.calculate_distance(user_lat, user_lon, cafe_lat, cafe_lon)
                 distances.append(('카페', row['이름'], cafe_distance))
 
         for index, row in self.hotel_places.iterrows():
-            hotel_lat, hotel_lon = self.convert_address_to_coordinates(row['위치'])
+            hotel_lat, hotel_lon = self.convert_address_to_coordinates(row['위치'], row['지역'])
             if hotel_lat is not None and hotel_lon is not None:
                 hotel_distance = self.calculate_distance(user_lat, user_lon, hotel_lat, hotel_lon)
                 distances.append(('호텔', row['이름'], hotel_distance))
 
         for index, row in self.tourist_places.iterrows():
-            tourist_lat, tourist_lon = self.convert_address_to_coordinates(row['위치'])
+            tourist_lat, tourist_lon = self.convert_address_to_coordinates(row['위치'], row['지역'])
             if tourist_lat is not None and tourist_lon is not None:
                 tourist_distance = self.calculate_distance(user_lat, user_lon, tourist_lat, tourist_lon)
                 distances.append(('관광지', row['이름'], tourist_distance))
