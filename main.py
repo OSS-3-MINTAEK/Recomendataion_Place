@@ -51,7 +51,21 @@ result_tour = near_user_tour.sort_values(by='거리 차', ascending=True).head(5
 result_hotel = near_user_hotel.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
 
 # 결과 출력
-print(result_cafe.values)
-print(result_food.values)
-print(result_tour.values)
-print(result_hotel.values)
+while True:
+    try:
+        row_number = int(input("몇번째 순위를 보고싶은지 입력해주세요. (1~5 입력, 0을 입력하면 종료): "))
+        
+        if row_number == 0:
+            break
+        
+        cafe_row = result_cafe.iloc[row_number - 1]
+        food_row = result_food.iloc[row_number - 1]
+        tour_row = result_tour.iloc[row_number - 1]
+        hotel_row = result_hotel.iloc[row_number - 1]
+
+        print(f"카페 '{cafe_row['이름']}' 은/는 {cafe_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
+        print(f"음식점 '{food_row['이름']}' 은/는 {food_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
+        print(f"관광지 '{tour_row['이름']}' 은/는 {tour_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
+        print(f"호텔 '{hotel_row['이름']}' 은/는 {hotel_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
+    except ValueError:
+        print("잘못된 입력")
