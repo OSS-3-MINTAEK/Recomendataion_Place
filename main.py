@@ -39,18 +39,33 @@ if location:
     user_lat, user_lon = location.latitude, location.longitude
 
 # 사용자의 위치와 가게의 거리 차 구하기
-near_user_cafe['거리 차'] = near_user_cafe['위치'].apply(
-    lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x).point).km
-    if geolocator.geocode(x) is not None else None)
+def add_distance_row(data, user_lat, user_lon):
+    data['거리 차'] = data['위치'].apply(
+        lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x).point).km
+        if geolocator.geocode(x) is not None else None)
+    
+add_distance_row(near_user_cafe, user_lat, user_lon)
+add_distance_row(near_user_food, user_lat, user_lon)
+add_distance_row(near_user_tour, user_lat, user_lon)
+add_distance_row(near_user_hotel, user_lat, user_lon)
 
 # 거리 차가 적은 순으로 정렬
 near_user_cafe = near_user_cafe.sort_values(by='거리 차', ascending=True)
+near_user_food = near_user_food.sort_values(by='거리 차', ascending=True)
+near_user_tour = near_user_tour.sort_values(by='거리 차', ascending=True)
+near_user_hotel = near_user_hotel.sort_values(by='거리 차', ascending=True)
 
 # '이름'과 '거리 차' 열 추출
-result = near_user_cafe.head(5).loc[:, ['이름', '거리 차']]
+result_cafe = near_user_cafe.head(5).loc[:, ['이름', '거리 차']]
+result_food = near_user_food.head(5).loc[:, ['이름', '거리 차']]
+result_tour = near_user_tour.head(5).loc[:, ['이름', '거리 차']]
+result_hotel = near_user_hotel.head(5).loc[:, ['이름', '거리 차']]
 
 # 결과 출력
-print(result)
+print(result_cafe.values)
+print(result_food.values)
+print(result_tour.values)
+print(result_hotel.values)
 
 
 
