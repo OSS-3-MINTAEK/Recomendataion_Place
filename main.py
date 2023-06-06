@@ -50,22 +50,49 @@ result_food = near_user_food.sort_values(by='거리 차', ascending=True).head(5
 result_tour = near_user_tour.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
 result_hotel = near_user_hotel.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
 
+# 결과 출력 함수 정의
+def print_results(category, result):
+    print(f"--- {category} 순위 ---")
+    for i, row in result.iterrows():
+        print(f"{i + 1}. {row['이름']}: {row['거리 차']:.4f} km")
+
 # 결과 출력
 while True:
     try:
-        row_number = int(input("몇번째 순위를 보고싶은지 입력해주세요. (1~5 입력, 0을 입력하면 종료): "))
+        category = input("변경하고 싶은 항목을 입력하세요 (카페, 음식점, 관광지, 호텔): ")
         
-        if row_number == 0:
-            break
+        if category == "카페":
+            result = result_cafe
+        elif category == "음식점":
+            result = result_food
+        elif category == "관광지":
+            result = result_tour
+        elif category == "호텔":
+            result = result_hotel
+        else:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            continue
         
-        cafe_row = result_cafe.iloc[row_number - 1]
-        food_row = result_food.iloc[row_number - 1]
-        tour_row = result_tour.iloc[row_number - 1]
-        hotel_row = result_hotel.iloc[row_number - 1]
-
-        print(f"카페 '{cafe_row['이름']}' 은/는 {cafe_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
-        print(f"음식점 '{food_row['이름']}' 은/는 {food_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
-        print(f"관광지 '{tour_row['이름']}' 은/는 {tour_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
-        print(f"호텔 '{hotel_row['이름']}' 은/는 {hotel_row['거리 차']:.4f} km 만큼 {user_location} 로부터 떨어져있습니다.")
+        print_results(category, result)
+        
     except ValueError:
-        print("잘못된 입력")
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+
+    row_number = int(input("몇번째 순위를 보고싶은지 입력해주세요 (1~5 입력, 0을 입력하면 종료): "))
+    
+    if row_number == 0:
+        break
+    
+    try:
+        if category == "카페":
+            row = result_cafe.iloc[row_number - 1]
+        elif category == "음식점":
+            row = result_food.iloc[row_number - 1]
+        elif category == "관광지":
+            row = result_tour.iloc[row_number - 1]
+        elif category == "호텔":
+            row = result_hotel.iloc[row_number - 1]
+
+        print(f"{category} '{row['이름']}'은/는 {row['거리 차']:.4f} km 만큼 {user_location}로부터 떨어져있습니다.")
+    except IndexError:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
