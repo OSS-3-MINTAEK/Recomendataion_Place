@@ -59,7 +59,7 @@ def print_results(category, result):
 # 결과 출력
 while True:
     try:
-        category = input("변경하고 싶은 항목을 입력하세요 (카페, 음식점, 관광지, 호텔): ")
+        category = input("확인 하고 싶은 항목을 입력하세요 (카페, 음식점, 관광지, 호텔): ")
         
         if category == "카페":
             result = result_cafe
