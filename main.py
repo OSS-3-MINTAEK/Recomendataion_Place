@@ -29,7 +29,7 @@ near_user_hotel = hotel_data[hotel_data['지역'].str.contains(user_location)]
 
 # 사용자의 위치 위도 경도 불러오기
 geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
+location = geolocator.geocode(user_location, timeout=None)
 if location:
     user_lat, user_lon = location.latitude, location.longitude
 
