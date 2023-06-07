@@ -26,7 +26,7 @@ for category, file_path in data_files.items():
 
 # 사용자 위치 정보 가져오기
 geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
+location = geolocator.geocode(user_location, timeout=None)
 if location:
     user_lat, user_lon = location.latitude, location.longitude
 else:
