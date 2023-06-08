@@ -56,43 +56,8 @@ def print_results(category, result):
     for i, row in result.iterrows():
         print(f"{i + 1}. {row['이름']}: {row['거리 차']:.4f} km")
 
-# 결과 출력
-while True:
-    try:
-        category = input("확인 하고 싶은 항목을 입력하세요 (카페, 음식점, 관광지, 호텔): ")
-        
-        if category == "카페":
-            result = result_cafe
-        elif category == "음식점":
-            result = result_food
-        elif category == "관광지":
-            result = result_tour
-        elif category == "호텔":
-            result = result_hotel
-        else:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        
-        print_results(category, result)
-        
-    except ValueError:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-
-    row_number = int(input("몇번째 순위를 보고싶은지 입력해주세요 (1~5 입력, 0을 입력하면 종료): "))
-    
-    if row_number == 0:
-        break
-    
-    try:
-        if category == "카페":
-            row = result_cafe.iloc[row_number - 1]
-        elif category == "음식점":
-            row = result_food.iloc[row_number - 1]
-        elif category == "관광지":
-            row = result_tour.iloc[row_number - 1]
-        elif category == "호텔":
-            row = result_hotel.iloc[row_number - 1]
-
-        print(f"{category} '{row['이름']}'은/는 {row['거리 차']:.4f} km 만큼 {user_location}로부터 떨어져있습니다.")
-    except IndexError:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+# Print the first rank for each category
+print_results("Cafe", result_cafe.head(1))
+print_results("Food Place", result_food.head(1))
+print_results("Tourist Place", result_tour.head(1))
+print_results("Hotel", result_hotel.head(1))
