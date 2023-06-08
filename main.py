@@ -29,14 +29,14 @@ near_user_hotel = hotel_data[hotel_data['지역'].str.contains(user_location)]
 
 # 사용자의 위치 위도 경도 불러오기
 geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
+location = geolocator.geocode(user_location, timeout=None)
 if location:
     user_lat, user_lon = location.latitude, location.longitude
 
 # 사용자의 위치와 가게의 거리 차 구하기
 def add_distance_row(data, user_lat, user_lon):
     data['거리 차'] = data['위치'].apply(
-        lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x).point).km
+        lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x, timeout=None).point).km
         if geolocator.geocode(x) is not None else None)
     
 add_distance_row(near_user_cafe, user_lat, user_lon)
