@@ -11,7 +11,7 @@ data_files = {
 }
 
 # 사용자 위치 입력 및 유효성 검사
-locations = ['제주시', '애월읍', '한림읍', '한경면', '대정읍', '인덕면', '중문', '서귀포시', '남원읍', '표선면', '성산읍', '우도', '구좌읍', '조천읍']
+locations = ['제주시', '애월읍', '한림읍', '한경면', '대정읍', '안덕면', '중문', '서귀포시', '남원읍', '표선면', '성산읍', '우도', '구좌읍', '조천읍']
 print(locations)
 
 while True:
@@ -26,7 +26,7 @@ for category, file_path in data_files.items():
 
 # 사용자 위치 정보 가져오기
 geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
+location = geolocator.geocode(user_location, timeout=None)
 if location:
     user_lat, user_lon = location.latitude, location.longitude
 else:
