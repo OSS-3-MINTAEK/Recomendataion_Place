@@ -29,14 +29,14 @@ near_user_hotel = hotel_data[hotel_data['지역'].str.contains(user_location)]
 
 # 사용자의 위치 위도 경도 불러오기
 geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
+location = geolocator.geocode(user_location, timeout=None)
 if location:
     user_lat, user_lon = location.latitude, location.longitude
 
 # 사용자의 위치와 가게의 거리 차 구하기
 def add_distance_row(data, user_lat, user_lon):
     data['거리 차'] = data['위치'].apply(
-        lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x).point).km
+        lambda x: distance.distance((user_lat, user_lon), geolocator.geocode(x, timeout=None).point).km
         if geolocator.geocode(x) is not None else None)
     
 add_distance_row(near_user_cafe, user_lat, user_lon)
@@ -56,43 +56,48 @@ def print_results(category, result):
     for i, row in result.iterrows():
         print(f"{i + 1}. {row['이름']}: {row['거리 차']:.4f} km")
 
-# 결과 출력
-while True:
-    try:
-        category = input("확인 하고 싶은 항목을 입력하세요 (카페, 음식점, 관광지, 호텔): ")
-        
-        if category == "카페":
-            result = result_cafe
-        elif category == "음식점":
-            result = result_food
-        elif category == "관광지":
-            result = result_tour
-        elif category == "호텔":
-            result = result_hotel
-        else:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        
-        print_results(category, result)
-        
-    except ValueError:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+# Print the first rank for each category
+print_results("Cafe", result_cafe.head(1))
+print_results("Food Place", result_food.head(1))
+print_results("Tourist Place", result_tour.head(1))
+print_results("Hotel", result_hotel.head(1))
 
-    row_number = int(input("몇번째 순위를 보고싶은지 입력해주세요 (1~5 입력, 0을 입력하면 종료): "))
-    
-    if row_number == 0:
+current_rank = {
+    "Cafe": 1,
+    "Food Place": 1,
+    "Tourist Place": 1,
+    "Hotel": 1
+}
+
+while True:
+    category_choice = int(input("Enter the category number to view more ranks (or enter '0' to stop): "))
+
+    if category_choice == 0:
         break
     
-    try:
-        if category == "카페":
-            row = result_cafe.iloc[row_number - 1]
-        elif category == "음식점":
-            row = result_food.iloc[row_number - 1]
-        elif category == "관광지":
-            row = result_tour.iloc[row_number - 1]
-        elif category == "호텔":
-            row = result_hotel.iloc[row_number - 1]
-
-        print(f"{category} '{row['이름']}'은/는 {row['거리 차']:.4f} km 만큼 {user_location}로부터 떨어져있습니다.")
-    except IndexError:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+    if category_choice == 1:
+        current_rank["Cafe"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 2:
+        current_rank["Food Place"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 3:
+        current_rank["Tourist Place"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 4:
+        current_rank["Hotel"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    else:
+        print("Invalid input. Please enter a valid category number.")
