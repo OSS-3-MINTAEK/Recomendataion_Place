@@ -61,3 +61,43 @@ print_results("Cafe", result_cafe.head(1))
 print_results("Food Place", result_food.head(1))
 print_results("Tourist Place", result_tour.head(1))
 print_results("Hotel", result_hotel.head(1))
+
+current_rank = {
+    "Cafe": 1,
+    "Food Place": 1,
+    "Tourist Place": 1,
+    "Hotel": 1
+}
+
+while True:
+    category_choice = int(input("Enter the category number to view more ranks (or enter '0' to stop): "))
+
+    if category_choice == 0:
+        break
+    
+    if category_choice == 1:
+        current_rank["Cafe"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 2:
+        current_rank["Food Place"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 3:
+        current_rank["Tourist Place"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    elif category_choice == 4:
+        current_rank["Hotel"] += 1
+        print_results("Cafe", result_cafe.iloc[current_rank["Cafe"] - 1:current_rank["Cafe"]])
+        print_results("Food Place", result_food.iloc[current_rank["Food Place"] - 1:current_rank["Food Place"]])
+        print_results("Tourist Place", result_tour.iloc[current_rank["Tourist Place"] - 1:current_rank["Tourist Place"]])
+        print_results("Hotel", result_hotel.iloc[current_rank["Hotel"] - 1:current_rank["Hotel"]])
+    else:
+        print("Invalid input. Please enter a valid category number.")
