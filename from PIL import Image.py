@@ -6,7 +6,6 @@ def recommend_travel_course(photo_path):
     image.show()
 
     # 여행 코스 추천 로직
-    # ...
 
 # 여행 코스 추천 시스템 호출
 photo_path = 'C:\Users\namik\Desktop\Recomendataion_Place\Recommendataion_Place\tourist_images'  # 사용할 사진 파일 경로
