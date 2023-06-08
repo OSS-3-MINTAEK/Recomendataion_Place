@@ -22,13 +22,12 @@ while user_location not in locations:
     print("유효하지 않은 위치입니다. 다시 입력해주세요.")
     user_location = input("사용자 위치를 입력하세요: ")
 
-# 사용자 위치 정보 가져오기
-geolocator = Nominatim(user_agent="geopy")
-location = geolocator.geocode(user_location)
-if location:
-    user_lat, user_lon = location.latitude, location.longitude
-else:
-    raise ValueError("유효하지 않은 위치입니다.")
+# 데이터 프레임 로드 및 '위치' 컬럼 추출
+df_list = []
+for place_type, file_path in data_files.items():
+    df = pd.read_csv(file_path)
+    df['Place Type'] = place_type
+    df_list.append(df)
 
 combined_df = pd.concat(df_list, ignore_index=True)
 locations_df = combined_df[['Place Type', '위치']]
