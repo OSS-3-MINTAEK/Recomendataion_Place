@@ -70,7 +70,7 @@ current_rank = {
 }
 
 while True:
-    category_choice = int(input("Enter the category number to view more ranks (or enter '0' to stop): "))
+    category_choice = int(input("Enter the category number to view more ranks (cafe : 1, Food : 2, Tourtist : 3, Hotel : 4 or enter '0' to stop): "))
 
     if category_choice == 0:
         break
