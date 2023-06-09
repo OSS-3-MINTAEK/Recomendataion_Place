@@ -45,16 +45,18 @@ add_distance_row(near_user_tour, user_lat, user_lon)
 add_distance_row(near_user_hotel, user_lat, user_lon)
 
 # 거리 차가 적은 순으로 정렬하여 상위 5개 추출
-result_cafe = near_user_cafe.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
-result_food = near_user_food.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
-result_tour = near_user_tour.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
-result_hotel = near_user_hotel.sort_values(by='거리 차', ascending=True).head(5)[['이름', '거리 차']]
+result_cafe = near_user_cafe.sort_values(by='거리 차', ascending=True).head(5)[['이름', '링크', '거리 차']]
+result_food = near_user_food.sort_values(by='거리 차', ascending=True).head(5)[['이름', '링크', '거리 차']]
+result_tour = near_user_tour.sort_values(by='거리 차', ascending=True).head(5)[['이름', '링크', '거리 차']]
+result_hotel = near_user_hotel.sort_values(by='거리 차', ascending=True).head(5)[['이름', '링크', '거리 차']]
 
 # 결과 출력 함수 정의
 def print_results(category, result):
     print(f"--- {category} 순위 ---")
     for i, row in result.iterrows():
         print(f"{i + 1}. {row['이름']}: {row['거리 차']:.4f} km")
+        print(f"링크: {row['링크']}")
+        print()
 
 # Print the first rank for each category
 print_results("Cafe", result_cafe.head(1))
@@ -70,7 +72,7 @@ current_rank = {
 }
 
 while True:
-    category_choice = int(input("Enter the category number to view more ranks (cafe : 1, Food : 2, Tourtist : 3, Hotel : 4 or enter '0' to stop): "))
+    category_choice = int(input("Enter the category number to view more ranks (Cafe: 1, Food: 2, Tourist: 3, Hotel: 4 or enter '0' to stop): "))
 
     if category_choice == 0:
         break
