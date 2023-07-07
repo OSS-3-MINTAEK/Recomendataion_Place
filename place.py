@@ -87,16 +87,7 @@ class Place:
             change_type = input("Which place do you want to change? (cafe / restaurant / tour) ")
             if change_type == "cafe":
                 self.recommended_place[0] = random.choice(self.cafe_places_name)
-            elif change_type == "restaurant":
-                self.recommended_place[1] = random.choice(self.food_places_name)
-            elif change_type == "tour":
-                self.recommended_place[2] = random.choice(self.tourist_places_name)
             else:
                 print("Invalid input.Please choose either 'cafe', 'restaurant', or 'tour'.")
-        elif check == "no":
-            print("keep it")
-            true_false = True
-        else:
-            print("Invalid input. Please enter either 'yes' or 'no'.")
-        return true_false
-    
+        return true_false    
+
