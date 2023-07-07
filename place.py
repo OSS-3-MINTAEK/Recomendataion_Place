@@ -80,14 +80,10 @@ class Place:
         # 리턴
         return self.recommended_place
     
-    def user_check(self):
+    def user_check(self)
         true_false = False
-        check = input("Do you want to change the place? (yes / no) ")
-        if check == "yes":
-            change_type = input("Which place do you want to change? (cafe / restaurant / tour) ")
-            if change_type == "cafe":
-                self.recommended_place[0] = random.choice(self.cafe_places_name)
-            else:
-                print("Invalid input.Please choose either 'cafe', 'restaurant', or 'tour'.")
-        return true_false    
+            check = input("Do you want to change the place?")
+            if check == "YES" :
+            change_type =vinput("Which place")
+        return true_false
 
